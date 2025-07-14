@@ -1,0 +1,4 @@
+# ninja log v5
+0	10323	1752111744501968115	/home/lyc/llm/tranvod/models/ops/build/temp.linux-x86_64-cpython-38/home/lyc/llm/tranvod/models/ops/src/cpu/ms_deform_attn_cpu.o	bef5e394a4d56d31
+1	23111	1752111757297979208	/home/lyc/llm/tranvod/models/ops/build/temp.linux-x86_64-cpython-38/home/lyc/llm/tranvod/models/ops/src/cuda/ms_deform_attn_cuda.o	82779d8f67e29f8e
+1	29683	1752111763833984875	/home/lyc/llm/tranvod/models/ops/build/temp.linux-x86_64-cpython-38/home/lyc/llm/tranvod/models/ops/src/vision.o	1fda6aea57818a3f

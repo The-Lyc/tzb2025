@@ -137,6 +137,11 @@ def get_args_parser():
 
 
 def main(args):
+    # for k, v in vars(args).items():
+    #     print(f"{k}: {v}")
+    
+    # exit()
+
     if args.dataset_file == "vid_single":
         from engine_single import evaluate, train_one_epoch
         import util.misc as utils

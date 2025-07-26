@@ -132,8 +132,9 @@ class DeformableDETR(nn.Module):
                - "aux_outputs": Optional, only returned when auxilary losses are activated. It is a list of
                                 dictionnaries containing the two above keys for each decoder layer.
         """
-        if not isinstance(samples, NestedTensor):
-            samples = nested_tensor_from_tensor_list(samples)
+        print(f"!!!!!!!!!Type of samples before nested_tensor_from_tensor_list: {type(samples)}")
+        # if not isinstance(samples, NestedTensor):
+        #     samples = nested_tensor_from_tensor_list(samples)
         features, pos = self.backbone(samples)
         # print('features[-1].tensors.shape', features[-1].tensors.shape)
 
@@ -261,6 +262,7 @@ class SetCriterion(nn.Module):
         # Count the number of predictions that are NOT "no-object" (which is the last class)
         card_pred = (pred_logits.argmax(-1) != pred_logits.shape[-1] - 1).sum(1)
         card_err = F.l1_loss(card_pred.float(), tgt_lengths.float())
+        # import pdb; pdb.set_trace()
         losses = {'cardinality_error': card_err}
         return losses
 
@@ -449,7 +451,7 @@ class MLP(nn.Module):
 
 
 def build(args):
-    num_classes = 31
+    num_classes = 7
     device = torch.device(args.device)
 
     if 'swin' in args.backbone:

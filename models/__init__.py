@@ -13,7 +13,7 @@ from .deformable_detr_multi import build as build_multi
 
 
 def build_model(args):
-    if args.dataset_file == "vid_multi":
+    if args.dataset_file == "vid_multi" or args.dataset_file == "tzb_multi":
         return build_multi(args)
     else: # args.dataset_file == "vid_single":
         return build_single(args)

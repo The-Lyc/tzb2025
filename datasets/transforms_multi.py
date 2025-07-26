@@ -366,28 +366,35 @@ class PhotometricDistort(object):
     def __init__(self):
         self.pd = [
             RandomContrast(),
-            ConvertColor(transform='HSV'),
-            RandomSaturation(),
-            RandomHue(),
-            ConvertColor(current='HSV', transform='BGR'),
+            # ConvertColor(transform='HSV'),
+            # RandomSaturation(),
+            # RandomHue(),
+            # ConvertColor(current='HSV', transform='BGR'),
             RandomContrast()
         ]
         self.rand_brightness = RandomBrightness()
-        self.rand_light_noise = RandomLightingNoise()
+        # self.rand_light_noise = RandomLightingNoise()
     
     def __call__(self,clip,target):
-        imgs = []
-        for img in clip:
-            img = np.asarray(img).astype('float32')
-            img, target = self.rand_brightness(img, target)
-            if rand.randint(2):
-                distort = Compose(self.pd[:-1])
-            else:
-                distort = Compose(self.pd[1:])
-            img, target = distort(img, target)
-            img, target = self.rand_light_noise(img, target)
-            imgs.append(Image.fromarray(img.astype('uint8')))
-        return imgs, target
+        # imgs = []
+        # for img in clip:
+        #     img = np.asarray(img).astype('float32')
+        #     img, target = self.rand_brightness(img, target)
+        #     if rand.randint(2):
+        #         distort = Compose(self.pd[:-1])
+        #     else:
+        #         distort = Compose(self.pd[1:])
+        #     img, target = distort(img, target)
+        #     img, target = self.rand_light_noise(img, target)
+        #     imgs.append(Image.fromarray(img.astype('uint8')))
+        # return imgs, target
+        for transform in self.pd: # 如果 pd 列表已经更新为只包含灰度操作
+            image, target = transform(image, target)
+        # 应用 rand_brightness 或其他全局变换
+        if hasattr(self, 'rand_brightness'):
+            image, target = self.rand_brightness(image, target)
+        
+        return image, target
 
 #NOTICE: if used for mask, need to change
 class Expand(object):

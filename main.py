@@ -114,7 +114,8 @@ def get_args_parser():
     parser.add_argument('--focal_alpha', default=0.25, type=float)
 
     # dataset parameters
-    parser.add_argument('--dataset_file', default='vid_multi')
+    parser.add_argument('--tzb_path', default='./data/tzb', type=str)
+    parser.add_argument('--dataset_file', default='tzb_multi')
     parser.add_argument('--coco_path', default='./data/coco', type=str)
     parser.add_argument('--vid_path', default='./data/vid', type=str)
     parser.add_argument('--coco_pretrain', default=False, action='store_true')
@@ -130,6 +131,7 @@ def get_args_parser():
     parser.add_argument('--start_epoch', default=0, type=int, metavar='N',
                         help='start epoch')
     parser.add_argument('--eval', action='store_true')
+    parser.add_argument('--test', action='store_true')
     parser.add_argument('--num_workers', default=0, type=int)
     parser.add_argument('--cache_mode', default=False, action='store_true', help='whether to cache images on memory')
 
@@ -142,11 +144,11 @@ def main(args):
     
     # exit()
 
-    if args.dataset_file == "vid_single":
+    if args.dataset_file == "tzb_single" or args.dataset_file == "vid_single":
         from engine_single import evaluate, train_one_epoch
         import util.misc as utils
     else:
-        from engine_multi import evaluate, train_one_epoch
+        from engine_multi import evaluate, train_one_epoch, test
         import util.misc_multi as utils
         # from engine_multi_mm import evaluate, train_one_epoch
         # import util.misc_mm as utils
@@ -173,7 +175,7 @@ def main(args):
     n_parameters = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print('number of params:', n_parameters)
 
-    dataset_train = build_dataset(image_set='train_joint', args=args)
+    dataset_train = build_dataset(image_set='train_tzb', args=args)
     dataset_val = build_dataset(image_set='val', args=args)
 
     if args.distributed:
@@ -268,6 +270,24 @@ def main(args):
                         tmp_dict[k] = v 
                     else:
                         print('k', k)
+                # --- 单通道预训练权重处理逻辑 START ---
+                # 检查并调整 backbone.0.body.patch_embed.proj.weight
+                # 模型输入是单通道，而预训练权重是三通道
+                if 'backbone.0.body.patch_embed.proj.weight' in tmp_dict:
+                    pretrained_proj_weight = tmp_dict['backbone.0.body.patch_embed.proj.weight']
+                    # 检查预训练权重是否是三通道，而当前模型期望单通道
+                    # 这里需要假设 model_without_ddp.backbone.0.body.patch_embed.proj 已经初始化
+                    # 并且其 in_channels 已经设置为 1
+                    # 简单起见，我们直接检查加载的权重形状
+                    if pretrained_proj_weight.shape[1] == 3: 
+                        print("Warning: Input channel mismatch detected for backbone.0.body.patch_embed.proj.weight. Adjusting pre-trained weights for single channel input.")
+                        # 将预训练的3通道权重，在输入通道维度上取平均，得到1通道权重
+                        # shape: [out_channels, 3, kernel_h, kernel_w] -> [out_channels, 1, kernel_h, kernel_w]
+                        averaged_weight = pretrained_proj_weight.mean(dim=1, keepdim=True)
+                        tmp_dict['backbone.0.body.patch_embed.proj.weight'] = averaged_weight
+                        print(f"Original pre-trained weight shape: {pretrained_proj_weight.shape}")
+                        print(f"Adjusted weight shape for single channel: {averaged_weight.shape}")
+                # --- 插入单通道预训练权重处理逻辑 END ---
             else:
                 # multi-frame (TransVOD++)
                 tmp_dict = checkpoint['model']
@@ -286,6 +306,10 @@ def main(args):
             print('Missing Keys: {}'.format(missing_keys))
         if len(unexpected_keys) > 0:
             print('Unexpected Keys: {}'.format(unexpected_keys))
+
+    if args.test:
+        test(model, criterion, postprocessors, data_loader_val, base_ds, device, args.output_dir)
+        return 
 
     if args.eval:
         test_stats, coco_evaluator = evaluate(model, criterion, postprocessors,

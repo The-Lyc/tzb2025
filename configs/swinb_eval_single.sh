@@ -3,8 +3,8 @@
 set -x
 T=`date +%m%d%H%M`
 
-EXP_DIR=exps/our_models/exps_single/swinb_88.3
-mkdir ${EXP_DIR}
+EXP_DIR=exps/our_models/exps_single
+mkdir -p ${EXP_DIR}
 PY_ARGS=${@:1}
 python -u main.py \
     --eval \
@@ -19,6 +19,6 @@ python -u main.py \
     --num_workers 1 \
     --with_box_refine \
     --resume ${EXP_DIR}/checkpoint0006.pth \
-    --dataset_file 'vid_single' \
+    --dataset_file 'tzb_single' \
     --output_dir ${EXP_DIR} \
     ${PY_ARGS} 2>&1 | tee ${EXP_DIR}/log.eval_e7.$T.txt

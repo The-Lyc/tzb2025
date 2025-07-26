@@ -409,7 +409,7 @@ class PatchEmbed(nn.Module):
         norm_layer (nn.Module, optional): Normalization layer. Default: None
     """
 
-    def __init__(self, patch_size=4, in_chans=3, embed_dim=96, norm_layer=None):
+    def __init__(self, patch_size=4, in_chans=1, embed_dim=96, norm_layer=None):
         super().__init__()
         patch_size = to_2tuple(patch_size)
         self.patch_size = patch_size
@@ -473,7 +473,7 @@ class SwinTransformer(nn.Module):
     def __init__(self,
                  pretrain_img_size=224,
                  patch_size=4,
-                 in_chans=3,
+                 in_chans=1,
                  embed_dim=96,
                  depths=[2, 2, 6, 2],
                  num_heads=[3, 6, 12, 24],

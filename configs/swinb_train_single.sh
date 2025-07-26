@@ -3,8 +3,8 @@
 set -x
 T=`date +%m%d%H%M`
 
-EXP_DIR=exps/singlebaseline_swin_384_level1024/swin_e7_ld56_nf1_dim256_wbox_dc5_bs2_numquery_100
-mkdir ${EXP_DIR}
+EXP_DIR=exps/singlebaseline_swin/pure_first
+mkdir -p ${EXP_DIR}
 PY_ARGS=${@:1}
 python -u main.py \
     --backbone swin_b_p4w7 \
@@ -19,6 +19,6 @@ python -u main.py \
     --with_box_refine \
     --resume ./exps/our_models/COCO_pretrained_model/swinb_checkpoint0048.pth \
     --coco_pretrain \
-    --dataset_file 'vid_single' \
+    --dataset_file 'tzb_single' \
     --output_dir ${EXP_DIR} \
     ${PY_ARGS} 2>&1 | tee ${EXP_DIR}/log.train.$T

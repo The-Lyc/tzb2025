@@ -1,6 +1,7 @@
 # 忽略 data 目录下除了 .gitkeep 之外的所有内容
 data/*
 exps/*
+output/*
 
 # 但不要忽略 data 目录本身，以及其中的 .gitkeep 文件
 # 这允许 Git 跟踪一个空的 data 目录，方便其他人克隆仓库后能看到这个目录结构

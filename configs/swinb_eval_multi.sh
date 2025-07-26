@@ -3,7 +3,7 @@
 set -x
 T=`date +%m%d%H%M`
 
-EXP_DIR=exps/our_models/exps_multi/swinb_90.0
+EXP_DIR=exps/our_models/tzb_multi
 mkdir -p ${EXP_DIR}
 PY_ARGS=${@:1}
 python -u main.py \
@@ -18,8 +18,8 @@ python -u main.py \
     --num_ref_frames 14 \
     --resume ${EXP_DIR}/checkpoint0005.pth \
     --lr_drop_epochs 4 5 \
-    --num_workers 1 \
+    --num_workers 0 \
     --with_box_refine \
-    --dataset_file 'vid_multi' \
+    --dataset_file 'tzb_multi' \
     --output_dir ${EXP_DIR} \
     ${PY_ARGS} 2>&1 | tee ${EXP_DIR}/log.eval_e6.$T

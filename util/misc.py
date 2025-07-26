@@ -12,6 +12,7 @@ Misc functions, including distributed helpers.
 
 Mostly copy-paste from torchvision references.
 """
+import sys
 import os
 import subprocess
 import time
@@ -428,6 +429,10 @@ def init_distributed_mode(args):
         args.gpu = int(os.environ['LOCAL_RANK'])
         args.dist_url = 'env://'
         os.environ['LOCAL_SIZE'] = str(torch.cuda.device_count())
+        # print gpu rank
+        print(f"DEBUG: Process RANK: {args.rank}, WORLD_SIZE: {args.world_size}, LOCAL_RANK (GPU index): {args.gpu}")
+        sys.stdout.flush() # Ensure it prints immediately, especially in DDP
+        torch.cuda.set_device(args.gpu)
     elif 'SLURM_PROCID' in os.environ:
         proc_id = int(os.environ['SLURM_PROCID'])
         ntasks = int(os.environ['SLURM_NTASKS'])

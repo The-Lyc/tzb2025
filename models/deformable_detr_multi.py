@@ -138,6 +138,7 @@ class DeformableDETR(nn.Module):
                - "aux_outputs": Optional, only returned when auxilary losses are activated. It is a list of
                                 dictionnaries containing the two above keys for each decoder layer.
         """
+        # import pdb; pdb.set_trace()
         if not isinstance(samples, NestedTensor):
             samples = nested_tensor_from_tensor_list(samples)
         
@@ -424,13 +425,20 @@ class PostProcess(nn.Module):
         scores = topk_values
         topk_boxes = topk_indexes // out_logits.shape[2]
         labels = topk_indexes % out_logits.shape[2]
-        boxes = box_ops.box_cxcywh_to_xyxy(out_bbox)
+        
+        # import ipdb; ipdb.set_trace()
+        # to accomodate yolo format
+        boxes = out_bbox
+
+        # to accommodate coco api
+        # boxes = box_ops.box_cxcywh_to_xyxy(out_bbox)
+
         boxes = torch.gather(boxes, 1, topk_boxes.unsqueeze(-1).repeat(1,1,4))
 
         # and from relative [0, 1] to absolute [0, height] coordinates
-        img_h, img_w = target_sizes.unbind(1)
-        scale_fct = torch.stack([img_w, img_h, img_w, img_h], dim=1)
-        boxes = boxes * scale_fct[:, None, :]
+        # img_h, img_w = target_sizes.unbind(1)
+        # scale_fct = torch.stack([img_w, img_h, img_w, img_h], dim=1)
+        # boxes = boxes * scale_fct[:, None, :]
 
         results = [{'scores': s, 'labels': l, 'boxes': b} for s, l, b in zip(scores, labels, boxes)]
 
@@ -453,7 +461,7 @@ class MLP(nn.Module):
 
 
 def build(args):
-    num_classes = 31
+    num_classes = 7
     device = torch.device(args.device)
 
     if 'swin' in args.backbone:

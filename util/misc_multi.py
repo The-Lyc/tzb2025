@@ -302,6 +302,7 @@ def get_sha():
 
 
 def collate_fn(batch):
+    # import pdb; pdb.set_trace()
     batch = list(zip(*batch))
     batch[0] = nested_tensor_from_tensor_list(batch[0])
     return tuple(batch)
@@ -317,9 +318,10 @@ def _max_by_axis(the_list):
 
 def nested_tensor_from_tensor_list(tensor_list: List[Tensor], split=True):
     # TODO make this more general
+    # import pdb; pdb.set_trace()
     if split:
         # print("type input tensor list", type(tensor_list))
-        tensor_list = [tensor.split(3,dim=0) for tensor in tensor_list]
+        tensor_list = [tensor.split(1,dim=0) for tensor in tensor_list]
         tensor_list = [item for sublist in tensor_list for item in sublist]
     if tensor_list[0].ndim == 3:
         # TODO make it support different-sized images

@@ -37,4 +37,11 @@ def build_dataset(image_set, args):
         return build_vid_single(image_set, args)
     if args.dataset_file == "vid_multi":
         return build_vid_multi(image_set, args)
+    
+    if args.dataset_file == 'tzb_single':
+        from .tzb_single import build as build_tzb_single
+        return build_tzb_single(image_set, args)
+    if args.dataset_file == 'tzb_multi':
+        from .tzb_multi import build as build_tzb_multi
+        return build_tzb_multi(image_set, args)
     raise ValueError(f'dataset {args.dataset_file} not supported')

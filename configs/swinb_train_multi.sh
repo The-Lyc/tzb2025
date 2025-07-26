@@ -3,7 +3,7 @@
 set -x
 T=`date +%m%d%H%M`
 
-EXP_DIR=exps/multibaseline_level256_agg256_tdtd/swin_grad_88.3_e7_l56/e6_nf1_ld4,5_lr0.0002_nq100_wbox_MEGA_detrNorm_preSingle_nr14_dc5_nql3_filter150_75_40
+EXP_DIR=exps/multibaseline
 mkdir -p ${EXP_DIR}
 PY_ARGS=${@:1}
 python -u main.py \
@@ -15,10 +15,10 @@ python -u main.py \
     --dilation \
     --batch_size 1 \
     --num_ref_frames 14 \
-    --resume exps/our_models/exps_single/swinb_88.3/checkpoint0006.pth \
+    --resume exps/singlebaseline_swin/pure_first/checkpoint0006.pth \
     --lr_drop_epochs 4 5 \
     --num_workers 16 \
     --with_box_refine \
-    --dataset_file 'vid_multi' \
+    --dataset_file 'tzb_multi' \
     --output_dir ${EXP_DIR} \
     ${PY_ARGS} 2>&1 | tee ${EXP_DIR}/log.train.$T

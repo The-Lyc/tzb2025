@@ -3,7 +3,7 @@
 set -x
 T=`date +%m%d%H%M`
 
-EXP_DIR=exps/our_models/tzb_multi
+EXP_DIR=exps/multibaseline
 OUTPUT_DIR=output/tzb_multi
 mkdir -p ${EXP_DIR}
 PY_ARGS=${@:1}

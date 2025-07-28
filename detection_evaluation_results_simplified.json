@@ -1,0 +1,1961 @@
+{
+  "evaluation_config": {
+    "gt_root": "data/tzb/Data/comp/labels",
+    "pred_root": "data/tzb/Data/comp/predictions",
+    "iou_threshold": 0.3,
+    "class_names": [
+      "drone",
+      "car",
+      "ship",
+      "bus",
+      "pedestrian",
+      "cyclist"
+    ],
+    "averaging_method": "direct_video_level",
+    "averaging_description": "直接基于视频总体指标进行平均",
+    "consistency_iou_threshold": 0.3,
+    "stability_threshold": 0.8,
+    "temporal_consistency_rules": {
+      "targets_le5": "要求所有目标检出，且类别正确，且IoU > 0.3",
+      "targets_gt5": "要求80%目标检出，且类别正确，且IoU > 0.3"
+    }
+  },
+  "video_results": {
+    "video1": {
+      "frames_processed": 1500,
+      "frames_gt": 1500,
+      "frames_pred": 1500,
+      "metrics": {
+        "0": {
+          "class_name": "drone",
+          "tp": 1487,
+          "fp": 14,
+          "fn": 13,
+          "recall": 0.9913333333333333,
+          "precision": 0.9906728847435043,
+          "false_alarm_rate": 0.009327115256495655,
+          "f1": 0.9910029990003333,
+          "total_gt": 1500,
+          "total_pred": 1501
+        },
+        "overall": {
+          "tp": 1487,
+          "fp": 14,
+          "fn": 13,
+          "recall": 0.9913333333333333,
+          "precision": 0.9906728847435043,
+          "false_alarm_rate": 0.009327115256495655,
+          "f1": 0.9910029990003333,
+          "total_gt": 1500,
+          "total_pred": 1501,
+          "averaging_method": "macro",
+          "valid_classes_count": 1,
+          "valid_classes": [
+            0
+          ],
+          "temporal_consistency": 0.9913333333333333,
+          "consistent_frames": 1487,
+          "total_frames": 1500,
+          "frames_with_targets_le5": 1500,
+          "consistent_frames_le5": 1487,
+          "frames_with_targets_gt5": 0,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video10": {
+      "frames_processed": 380,
+      "frames_gt": 380,
+      "frames_pred": 380,
+      "metrics": {
+        "0": {
+          "class_name": "drone",
+          "tp": 0,
+          "fp": 319,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 319
+        },
+        "1": {
+          "class_name": "car",
+          "tp": 3,
+          "fp": 122,
+          "fn": 139,
+          "recall": 0.02112676056338028,
+          "precision": 0.024,
+          "false_alarm_rate": 0.976,
+          "f1": 0.022471910112359553,
+          "total_gt": 142,
+          "total_pred": 125
+        },
+        "4": {
+          "class_name": "pedestrian",
+          "tp": 10828,
+          "fp": 3251,
+          "fn": 17750,
+          "recall": 0.37889285464343203,
+          "precision": 0.7690887136870517,
+          "false_alarm_rate": 0.23091128631294833,
+          "f1": 0.507677520688281,
+          "total_gt": 28578,
+          "total_pred": 14079
+        },
+        "5": {
+          "class_name": "cyclist",
+          "tp": 0,
+          "fp": 603,
+          "fn": 123,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 123,
+          "total_pred": 603
+        },
+        "overall": {
+          "tp": 10831,
+          "fp": 4295,
+          "fn": 18012,
+          "recall": 0.1333398717356041,
+          "precision": 0.26436290456235056,
+          "false_alarm_rate": 0.7356370954376494,
+          "f1": 0.17671647693354686,
+          "total_gt": 28843,
+          "total_pred": 15126,
+          "averaging_method": "macro",
+          "valid_classes_count": 3,
+          "valid_classes": [
+            1,
+            4,
+            5
+          ],
+          "temporal_consistency": 0.0,
+          "consistent_frames": 0,
+          "total_frames": 380,
+          "frames_with_targets_le5": 0,
+          "consistent_frames_le5": 0,
+          "frames_with_targets_gt5": 380,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video11": {
+      "frames_processed": 310,
+      "frames_gt": 310,
+      "frames_pred": 310,
+      "metrics": {
+        "1": {
+          "class_name": "car",
+          "tp": 4,
+          "fp": 272,
+          "fn": 251,
+          "recall": 0.01568627450980392,
+          "precision": 0.014492753623188406,
+          "false_alarm_rate": 0.9855072463768116,
+          "f1": 0.015065913370998116,
+          "total_gt": 255,
+          "total_pred": 276
+        },
+        "3": {
+          "class_name": "bus",
+          "tp": 0,
+          "fp": 30,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 30
+        },
+        "4": {
+          "class_name": "pedestrian",
+          "tp": 0,
+          "fp": 80,
+          "fn": 251,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 251,
+          "total_pred": 80
+        },
+        "5": {
+          "class_name": "cyclist",
+          "tp": 24,
+          "fp": 232,
+          "fn": 607,
+          "recall": 0.03803486529318542,
+          "precision": 0.09375,
+          "false_alarm_rate": 0.90625,
+          "f1": 0.054114994363021425,
+          "total_gt": 631,
+          "total_pred": 256
+        },
+        "overall": {
+          "tp": 28,
+          "fp": 614,
+          "fn": 1109,
+          "recall": 0.017907046600996446,
+          "precision": 0.036080917874396136,
+          "false_alarm_rate": 0.9639190821256038,
+          "f1": 0.023060302578006512,
+          "total_gt": 1137,
+          "total_pred": 642,
+          "averaging_method": "macro",
+          "valid_classes_count": 3,
+          "valid_classes": [
+            1,
+            4,
+            5
+          ],
+          "temporal_consistency": 0.0,
+          "consistent_frames": 0,
+          "total_frames": 310,
+          "frames_with_targets_le5": 265,
+          "consistent_frames_le5": 0,
+          "frames_with_targets_gt5": 45,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video12": {
+      "frames_processed": 38,
+      "frames_gt": 90,
+      "frames_pred": 38,
+      "metrics": {
+        "0": {
+          "class_name": "drone",
+          "tp": 0,
+          "fp": 16,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 16
+        },
+        "1": {
+          "class_name": "car",
+          "tp": 0,
+          "fp": 66,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 66
+        },
+        "3": {
+          "class_name": "bus",
+          "tp": 0,
+          "fp": 12,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 12
+        },
+        "4": {
+          "class_name": "pedestrian",
+          "tp": 12,
+          "fp": 278,
+          "fn": 264,
+          "recall": 0.043478260869565216,
+          "precision": 0.041379310344827586,
+          "false_alarm_rate": 0.9586206896551724,
+          "f1": 0.04240282685512368,
+          "total_gt": 276,
+          "total_pred": 290
+        },
+        "5": {
+          "class_name": "cyclist",
+          "tp": 0,
+          "fp": 28,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 28
+        },
+        "overall": {
+          "tp": 12,
+          "fp": 400,
+          "fn": 264,
+          "recall": 0.043478260869565216,
+          "precision": 0.041379310344827586,
+          "false_alarm_rate": 0.9586206896551724,
+          "f1": 0.04240282685512368,
+          "total_gt": 276,
+          "total_pred": 412,
+          "averaging_method": "macro",
+          "valid_classes_count": 1,
+          "valid_classes": [
+            4
+          ],
+          "temporal_consistency": 0.0,
+          "consistent_frames": 0,
+          "total_frames": 38,
+          "frames_with_targets_le5": 0,
+          "consistent_frames_le5": 0,
+          "frames_with_targets_gt5": 38,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video13": {
+      "frames_processed": 109,
+      "frames_gt": 240,
+      "frames_pred": 109,
+      "metrics": {
+        "1": {
+          "class_name": "car",
+          "tp": 1099,
+          "fp": 3694,
+          "fn": 3735,
+          "recall": 0.22734795200661978,
+          "precision": 0.22929271854788233,
+          "false_alarm_rate": 0.7707072814521176,
+          "f1": 0.2283161940376026,
+          "total_gt": 4834,
+          "total_pred": 4793
+        },
+        "2": {
+          "class_name": "ship",
+          "tp": 50,
+          "fp": 17,
+          "fn": 337,
+          "recall": 0.12919896640826872,
+          "precision": 0.746268656716418,
+          "false_alarm_rate": 0.25373134328358204,
+          "f1": 0.22026431718061673,
+          "total_gt": 387,
+          "total_pred": 67
+        },
+        "3": {
+          "class_name": "bus",
+          "tp": 10,
+          "fp": 96,
+          "fn": 434,
+          "recall": 0.02252252252252252,
+          "precision": 0.09433962264150944,
+          "false_alarm_rate": 0.9056603773584906,
+          "f1": 0.03636363636363636,
+          "total_gt": 444,
+          "total_pred": 106
+        },
+        "4": {
+          "class_name": "pedestrian",
+          "tp": 425,
+          "fp": 4421,
+          "fn": 4987,
+          "recall": 0.07852919438285291,
+          "precision": 0.08770119686339249,
+          "false_alarm_rate": 0.9122988031366075,
+          "f1": 0.08286215636576331,
+          "total_gt": 5412,
+          "total_pred": 4846
+        },
+        "5": {
+          "class_name": "cyclist",
+          "tp": 11,
+          "fp": 1077,
+          "fn": 260,
+          "recall": 0.04059040590405904,
+          "precision": 0.01011029411764706,
+          "false_alarm_rate": 0.9898897058823529,
+          "f1": 0.016188373804267846,
+          "total_gt": 271,
+          "total_pred": 1088
+        },
+        "overall": {
+          "tp": 1595,
+          "fp": 9305,
+          "fn": 9753,
+          "recall": 0.0996378082448646,
+          "precision": 0.23354249777736985,
+          "false_alarm_rate": 0.7664575022226301,
+          "f1": 0.11679893555037738,
+          "total_gt": 11348,
+          "total_pred": 10900,
+          "averaging_method": "macro",
+          "valid_classes_count": 5,
+          "valid_classes": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "temporal_consistency": 0.0,
+          "consistent_frames": 0,
+          "total_frames": 109,
+          "frames_with_targets_le5": 0,
+          "consistent_frames_le5": 0,
+          "frames_with_targets_gt5": 109,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video14": {
+      "frames_processed": 360,
+      "frames_gt": 360,
+      "frames_pred": 360,
+      "metrics": {
+        "1": {
+          "class_name": "car",
+          "tp": 6344,
+          "fp": 2247,
+          "fn": 3040,
+          "recall": 0.6760443307757886,
+          "precision": 0.7384472121988127,
+          "false_alarm_rate": 0.2615527878011873,
+          "f1": 0.7058692628650904,
+          "total_gt": 9384,
+          "total_pred": 8591
+        },
+        "3": {
+          "class_name": "bus",
+          "tp": 62,
+          "fp": 23,
+          "fn": 658,
+          "recall": 0.08611111111111111,
+          "precision": 0.7294117647058823,
+          "false_alarm_rate": 0.2705882352941177,
+          "f1": 0.15403726708074533,
+          "total_gt": 720,
+          "total_pred": 85
+        },
+        "4": {
+          "class_name": "pedestrian",
+          "tp": 216,
+          "fp": 4333,
+          "fn": 439,
+          "recall": 0.3297709923664122,
+          "precision": 0.04748296328863486,
+          "false_alarm_rate": 0.9525170367113651,
+          "f1": 0.0830130668716372,
+          "total_gt": 655,
+          "total_pred": 4549
+        },
+        "5": {
+          "class_name": "cyclist",
+          "tp": 578,
+          "fp": 2780,
+          "fn": 5728,
+          "recall": 0.09165873771011734,
+          "precision": 0.17212626563430614,
+          "false_alarm_rate": 0.8278737343656939,
+          "f1": 0.11961920529801326,
+          "total_gt": 6306,
+          "total_pred": 3358
+        },
+        "overall": {
+          "tp": 7200,
+          "fp": 9383,
+          "fn": 9865,
+          "recall": 0.2958962929908573,
+          "precision": 0.421867051456909,
+          "false_alarm_rate": 0.578132948543091,
+          "f1": 0.26563470052887156,
+          "total_gt": 17065,
+          "total_pred": 16583,
+          "averaging_method": "macro",
+          "valid_classes_count": 4,
+          "valid_classes": [
+            1,
+            3,
+            4,
+            5
+          ],
+          "temporal_consistency": 0.0,
+          "consistent_frames": 0,
+          "total_frames": 360,
+          "frames_with_targets_le5": 0,
+          "consistent_frames_le5": 0,
+          "frames_with_targets_gt5": 360,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video15": {
+      "frames_processed": 320,
+      "frames_gt": 320,
+      "frames_pred": 320,
+      "metrics": {
+        "1": {
+          "class_name": "car",
+          "tp": 3237,
+          "fp": 1683,
+          "fn": 8216,
+          "recall": 0.282633371169126,
+          "precision": 0.6579268292682927,
+          "false_alarm_rate": 0.3420731707317073,
+          "f1": 0.39540707261955665,
+          "total_gt": 11453,
+          "total_pred": 4920
+        },
+        "3": {
+          "class_name": "bus",
+          "tp": 0,
+          "fp": 74,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 74
+        },
+        "4": {
+          "class_name": "pedestrian",
+          "tp": 120,
+          "fp": 1166,
+          "fn": 411,
+          "recall": 0.22598870056497175,
+          "precision": 0.09331259720062209,
+          "false_alarm_rate": 0.9066874027993779,
+          "f1": 0.13208585580627408,
+          "total_gt": 531,
+          "total_pred": 1286
+        },
+        "5": {
+          "class_name": "cyclist",
+          "tp": 882,
+          "fp": 2866,
+          "fn": 377,
+          "recall": 0.7005559968228753,
+          "precision": 0.23532550693703308,
+          "false_alarm_rate": 0.764674493062967,
+          "f1": 0.3523067705212702,
+          "total_gt": 1259,
+          "total_pred": 3748
+        },
+        "overall": {
+          "tp": 4239,
+          "fp": 5789,
+          "fn": 9004,
+          "recall": 0.4030593561856577,
+          "precision": 0.32885497780198264,
+          "false_alarm_rate": 0.6711450221980174,
+          "f1": 0.2932665663157003,
+          "total_gt": 13243,
+          "total_pred": 10028,
+          "averaging_method": "macro",
+          "valid_classes_count": 3,
+          "valid_classes": [
+            1,
+            4,
+            5
+          ],
+          "temporal_consistency": 0.0,
+          "consistent_frames": 0,
+          "total_frames": 320,
+          "frames_with_targets_le5": 0,
+          "consistent_frames_le5": 0,
+          "frames_with_targets_gt5": 320,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video16": {
+      "frames_processed": 280,
+      "frames_gt": 280,
+      "frames_pred": 280,
+      "metrics": {
+        "1": {
+          "class_name": "car",
+          "tp": 1279,
+          "fp": 266,
+          "fn": 191,
+          "recall": 0.8700680272108844,
+          "precision": 0.827831715210356,
+          "false_alarm_rate": 0.17216828478964397,
+          "f1": 0.848424543946932,
+          "total_gt": 1470,
+          "total_pred": 1545
+        },
+        "3": {
+          "class_name": "bus",
+          "tp": 0,
+          "fp": 52,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 52
+        },
+        "4": {
+          "class_name": "pedestrian",
+          "tp": 2,
+          "fp": 616,
+          "fn": 194,
+          "recall": 0.01020408163265306,
+          "precision": 0.003236245954692557,
+          "false_alarm_rate": 0.9967637540453075,
+          "f1": 0.004914004914004914,
+          "total_gt": 196,
+          "total_pred": 618
+        },
+        "5": {
+          "class_name": "cyclist",
+          "tp": 241,
+          "fp": 2002,
+          "fn": 5,
+          "recall": 0.9796747967479674,
+          "precision": 0.10744538564422648,
+          "false_alarm_rate": 0.8925546143557735,
+          "f1": 0.19365206910405786,
+          "total_gt": 246,
+          "total_pred": 2243
+        },
+        "overall": {
+          "tp": 1522,
+          "fp": 2936,
+          "fn": 390,
+          "recall": 0.619982301863835,
+          "precision": 0.31283778226975834,
+          "false_alarm_rate": 0.6871622177302417,
+          "f1": 0.3489968726549983,
+          "total_gt": 1912,
+          "total_pred": 4458,
+          "averaging_method": "macro",
+          "valid_classes_count": 3,
+          "valid_classes": [
+            1,
+            4,
+            5
+          ],
+          "temporal_consistency": 0.8071428571428572,
+          "consistent_frames": 226,
+          "total_frames": 280,
+          "frames_with_targets_le5": 36,
+          "consistent_frames_le5": 31,
+          "frames_with_targets_gt5": 244,
+          "consistent_frames_gt5": 195
+        }
+      }
+    },
+    "video17": {
+      "frames_processed": 165,
+      "frames_gt": 320,
+      "frames_pred": 165,
+      "metrics": {
+        "1": {
+          "class_name": "car",
+          "tp": 711,
+          "fp": 2414,
+          "fn": 1296,
+          "recall": 0.3542600896860987,
+          "precision": 0.22752,
+          "false_alarm_rate": 0.77248,
+          "f1": 0.2770849571317225,
+          "total_gt": 2007,
+          "total_pred": 3125
+        },
+        "3": {
+          "class_name": "bus",
+          "tp": 0,
+          "fp": 115,
+          "fn": 85,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 85,
+          "total_pred": 115
+        },
+        "4": {
+          "class_name": "pedestrian",
+          "tp": 23,
+          "fp": 5461,
+          "fn": 2332,
+          "recall": 0.009766454352441613,
+          "precision": 0.004194018964259664,
+          "false_alarm_rate": 0.9958059810357404,
+          "f1": 0.005868095420334226,
+          "total_gt": 2355,
+          "total_pred": 5484
+        },
+        "5": {
+          "class_name": "cyclist",
+          "tp": 21,
+          "fp": 3320,
+          "fn": 797,
+          "recall": 0.02567237163814181,
+          "precision": 0.0062855432505237955,
+          "false_alarm_rate": 0.9937144567494762,
+          "f1": 0.010098581389757154,
+          "total_gt": 818,
+          "total_pred": 3341
+        },
+        "overall": {
+          "tp": 755,
+          "fp": 11310,
+          "fn": 4510,
+          "recall": 0.09742472891917052,
+          "precision": 0.05949989055369587,
+          "false_alarm_rate": 0.9405001094463041,
+          "f1": 0.07326290848545347,
+          "total_gt": 5265,
+          "total_pred": 12065,
+          "averaging_method": "macro",
+          "valid_classes_count": 4,
+          "valid_classes": [
+            1,
+            3,
+            4,
+            5
+          ],
+          "temporal_consistency": 0.0,
+          "consistent_frames": 0,
+          "total_frames": 165,
+          "frames_with_targets_le5": 0,
+          "consistent_frames_le5": 0,
+          "frames_with_targets_gt5": 165,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video18": {
+      "frames_processed": 449,
+      "frames_gt": 449,
+      "frames_pred": 449,
+      "metrics": {
+        "1": {
+          "class_name": "car",
+          "tp": 1733,
+          "fp": 7560,
+          "fn": 1651,
+          "recall": 0.5121158392434988,
+          "precision": 0.18648445066178845,
+          "false_alarm_rate": 0.8135155493382116,
+          "f1": 0.27340853514238384,
+          "total_gt": 3384,
+          "total_pred": 9293
+        },
+        "3": {
+          "class_name": "bus",
+          "tp": 110,
+          "fp": 806,
+          "fn": 477,
+          "recall": 0.18739352640545145,
+          "precision": 0.12008733624454149,
+          "false_alarm_rate": 0.8799126637554585,
+          "f1": 0.14637391882900866,
+          "total_gt": 587,
+          "total_pred": 916
+        },
+        "4": {
+          "class_name": "pedestrian",
+          "tp": 0,
+          "fp": 2061,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 2061
+        },
+        "5": {
+          "class_name": "cyclist",
+          "tp": 238,
+          "fp": 4395,
+          "fn": 646,
+          "recall": 0.2692307692307692,
+          "precision": 0.05137060220159724,
+          "false_alarm_rate": 0.9486293977984027,
+          "f1": 0.08627877469639297,
+          "total_gt": 884,
+          "total_pred": 4633
+        },
+        "overall": {
+          "tp": 2081,
+          "fp": 14822,
+          "fn": 2774,
+          "recall": 0.32291337829323985,
+          "precision": 0.11931412970264238,
+          "false_alarm_rate": 0.8806858702973576,
+          "f1": 0.16868707622259516,
+          "total_gt": 4855,
+          "total_pred": 16903,
+          "averaging_method": "macro",
+          "valid_classes_count": 3,
+          "valid_classes": [
+            1,
+            3,
+            5
+          ],
+          "temporal_consistency": 0.0,
+          "consistent_frames": 0,
+          "total_frames": 449,
+          "frames_with_targets_le5": 0,
+          "consistent_frames_le5": 0,
+          "frames_with_targets_gt5": 449,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video19": {
+      "frames_processed": 1500,
+      "frames_gt": 1500,
+      "frames_pred": 1500,
+      "metrics": {
+        "0": {
+          "class_name": "drone",
+          "tp": 1349,
+          "fp": 1389,
+          "fn": 151,
+          "recall": 0.8993333333333333,
+          "precision": 0.4926953981008035,
+          "false_alarm_rate": 0.5073046018991965,
+          "f1": 0.6366210476639924,
+          "total_gt": 1500,
+          "total_pred": 2738
+        },
+        "1": {
+          "class_name": "car",
+          "tp": 0,
+          "fp": 15,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 15
+        },
+        "2": {
+          "class_name": "ship",
+          "tp": 0,
+          "fp": 14,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 14
+        },
+        "4": {
+          "class_name": "pedestrian",
+          "tp": 0,
+          "fp": 6,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 6
+        },
+        "overall": {
+          "tp": 1349,
+          "fp": 1424,
+          "fn": 151,
+          "recall": 0.8993333333333333,
+          "precision": 0.4926953981008035,
+          "false_alarm_rate": 0.5073046018991965,
+          "f1": 0.6366210476639924,
+          "total_gt": 1500,
+          "total_pred": 2773,
+          "averaging_method": "macro",
+          "valid_classes_count": 1,
+          "valid_classes": [
+            0
+          ],
+          "temporal_consistency": 0.8993333333333333,
+          "consistent_frames": 1349,
+          "total_frames": 1500,
+          "frames_with_targets_le5": 1500,
+          "consistent_frames_le5": 1349,
+          "frames_with_targets_gt5": 0,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video2": {
+      "frames_processed": 763,
+      "frames_gt": 763,
+      "frames_pred": 763,
+      "metrics": {
+        "0": {
+          "class_name": "drone",
+          "tp": 540,
+          "fp": 744,
+          "fn": 223,
+          "recall": 0.7077326343381389,
+          "precision": 0.4205607476635514,
+          "false_alarm_rate": 0.5794392523364487,
+          "f1": 0.5276013678553981,
+          "total_gt": 763,
+          "total_pred": 1284
+        },
+        "overall": {
+          "tp": 540,
+          "fp": 744,
+          "fn": 223,
+          "recall": 0.7077326343381389,
+          "precision": 0.4205607476635514,
+          "false_alarm_rate": 0.5794392523364487,
+          "f1": 0.5276013678553981,
+          "total_gt": 763,
+          "total_pred": 1284,
+          "averaging_method": "macro",
+          "valid_classes_count": 1,
+          "valid_classes": [
+            0
+          ],
+          "temporal_consistency": 0.7077326343381389,
+          "consistent_frames": 540,
+          "total_frames": 763,
+          "frames_with_targets_le5": 763,
+          "consistent_frames_le5": 540,
+          "frames_with_targets_gt5": 0,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video20": {
+      "frames_processed": 1467,
+      "frames_gt": 1467,
+      "frames_pred": 1467,
+      "metrics": {
+        "0": {
+          "class_name": "drone",
+          "tp": 391,
+          "fp": 600,
+          "fn": 592,
+          "recall": 0.3977619532044761,
+          "precision": 0.39455095862764883,
+          "false_alarm_rate": 0.6054490413723512,
+          "f1": 0.3961499493414387,
+          "total_gt": 983,
+          "total_pred": 991
+        },
+        "1": {
+          "class_name": "car",
+          "tp": 0,
+          "fp": 84,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 84
+        },
+        "2": {
+          "class_name": "ship",
+          "tp": 0,
+          "fp": 52,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 52
+        },
+        "3": {
+          "class_name": "bus",
+          "tp": 0,
+          "fp": 11,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 11
+        },
+        "4": {
+          "class_name": "pedestrian",
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 1
+        },
+        "overall": {
+          "tp": 391,
+          "fp": 748,
+          "fn": 592,
+          "recall": 0.3977619532044761,
+          "precision": 0.39455095862764883,
+          "false_alarm_rate": 0.6054490413723512,
+          "f1": 0.3961499493414387,
+          "total_gt": 983,
+          "total_pred": 1139,
+          "averaging_method": "macro",
+          "valid_classes_count": 1,
+          "valid_classes": [
+            0
+          ],
+          "temporal_consistency": 0.5964553510565781,
+          "consistent_frames": 875,
+          "total_frames": 1467,
+          "frames_with_targets_le5": 983,
+          "consistent_frames_le5": 391,
+          "frames_with_targets_gt5": 0,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video21": {
+      "frames_processed": 1000,
+      "frames_gt": 1000,
+      "frames_pred": 1000,
+      "metrics": {
+        "0": {
+          "class_name": "drone",
+          "tp": 899,
+          "fp": 1172,
+          "fn": 101,
+          "recall": 0.899,
+          "precision": 0.43408981168517624,
+          "false_alarm_rate": 0.5659101883148238,
+          "f1": 0.5854770433083687,
+          "total_gt": 1000,
+          "total_pred": 2071
+        },
+        "4": {
+          "class_name": "pedestrian",
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 1
+        },
+        "overall": {
+          "tp": 899,
+          "fp": 1173,
+          "fn": 101,
+          "recall": 0.899,
+          "precision": 0.43408981168517624,
+          "false_alarm_rate": 0.5659101883148238,
+          "f1": 0.5854770433083687,
+          "total_gt": 1000,
+          "total_pred": 2072,
+          "averaging_method": "macro",
+          "valid_classes_count": 1,
+          "valid_classes": [
+            0
+          ],
+          "temporal_consistency": 0.899,
+          "consistent_frames": 899,
+          "total_frames": 1000,
+          "frames_with_targets_le5": 1000,
+          "consistent_frames_le5": 899,
+          "frames_with_targets_gt5": 0,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video22": {
+      "frames_processed": 948,
+      "frames_gt": 948,
+      "frames_pred": 948,
+      "metrics": {
+        "0": {
+          "class_name": "drone",
+          "tp": 4,
+          "fp": 3916,
+          "fn": 944,
+          "recall": 0.004219409282700422,
+          "precision": 0.0010204081632653062,
+          "false_alarm_rate": 0.9989795918367347,
+          "f1": 0.0016433853738701727,
+          "total_gt": 948,
+          "total_pred": 3920
+        },
+        "1": {
+          "class_name": "car",
+          "tp": 0,
+          "fp": 47,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 47
+        },
+        "2": {
+          "class_name": "ship",
+          "tp": 0,
+          "fp": 30,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 30
+        },
+        "3": {
+          "class_name": "bus",
+          "tp": 0,
+          "fp": 3,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 3
+        },
+        "4": {
+          "class_name": "pedestrian",
+          "tp": 0,
+          "fp": 5,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 5
+        },
+        "overall": {
+          "tp": 4,
+          "fp": 4001,
+          "fn": 944,
+          "recall": 0.004219409282700422,
+          "precision": 0.0010204081632653062,
+          "false_alarm_rate": 0.9989795918367347,
+          "f1": 0.0016433853738701727,
+          "total_gt": 948,
+          "total_pred": 4005,
+          "averaging_method": "macro",
+          "valid_classes_count": 1,
+          "valid_classes": [
+            0
+          ],
+          "temporal_consistency": 0.004219409282700422,
+          "consistent_frames": 4,
+          "total_frames": 948,
+          "frames_with_targets_le5": 948,
+          "consistent_frames_le5": 4,
+          "frames_with_targets_gt5": 0,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video23": {
+      "frames_processed": 850,
+      "frames_gt": 850,
+      "frames_pred": 850,
+      "metrics": {
+        "0": {
+          "class_name": "drone",
+          "tp": 312,
+          "fp": 1044,
+          "fn": 538,
+          "recall": 0.36705882352941177,
+          "precision": 0.23008849557522124,
+          "false_alarm_rate": 0.7699115044247787,
+          "f1": 0.28286491387126017,
+          "total_gt": 850,
+          "total_pred": 1356
+        },
+        "1": {
+          "class_name": "car",
+          "tp": 0,
+          "fp": 15,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 15
+        },
+        "2": {
+          "class_name": "ship",
+          "tp": 0,
+          "fp": 9,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 9
+        },
+        "4": {
+          "class_name": "pedestrian",
+          "tp": 0,
+          "fp": 218,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 218
+        },
+        "overall": {
+          "tp": 312,
+          "fp": 1286,
+          "fn": 538,
+          "recall": 0.36705882352941177,
+          "precision": 0.23008849557522124,
+          "false_alarm_rate": 0.7699115044247787,
+          "f1": 0.28286491387126017,
+          "total_gt": 850,
+          "total_pred": 1598,
+          "averaging_method": "macro",
+          "valid_classes_count": 1,
+          "valid_classes": [
+            0
+          ],
+          "temporal_consistency": 0.36705882352941177,
+          "consistent_frames": 312,
+          "total_frames": 850,
+          "frames_with_targets_le5": 850,
+          "consistent_frames_le5": 312,
+          "frames_with_targets_gt5": 0,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video24": {
+      "frames_processed": 1500,
+      "frames_gt": 1500,
+      "frames_pred": 1500,
+      "metrics": {
+        "0": {
+          "class_name": "drone",
+          "tp": 0,
+          "fp": 0,
+          "fn": 1500,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 1500,
+          "total_pred": 0
+        },
+        "1": {
+          "class_name": "car",
+          "tp": 0,
+          "fp": 577,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 577
+        },
+        "overall": {
+          "tp": 0,
+          "fp": 577,
+          "fn": 1500,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 1500,
+          "total_pred": 577,
+          "averaging_method": "macro",
+          "valid_classes_count": 1,
+          "valid_classes": [
+            0
+          ],
+          "temporal_consistency": 0.0,
+          "consistent_frames": 0,
+          "total_frames": 1500,
+          "frames_with_targets_le5": 1500,
+          "consistent_frames_le5": 0,
+          "frames_with_targets_gt5": 0,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video25": {
+      "frames_processed": 1500,
+      "frames_gt": 1500,
+      "frames_pred": 1500,
+      "metrics": {
+        "0": {
+          "class_name": "drone",
+          "tp": 3,
+          "fp": 8,
+          "fn": 1410,
+          "recall": 0.0021231422505307855,
+          "precision": 0.2727272727272727,
+          "false_alarm_rate": 0.7272727272727273,
+          "f1": 0.004213483146067416,
+          "total_gt": 1413,
+          "total_pred": 11
+        },
+        "1": {
+          "class_name": "car",
+          "tp": 0,
+          "fp": 4435,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 4435
+        },
+        "2": {
+          "class_name": "ship",
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 2
+        },
+        "3": {
+          "class_name": "bus",
+          "tp": 0,
+          "fp": 242,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 242
+        },
+        "4": {
+          "class_name": "pedestrian",
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 1
+        },
+        "5": {
+          "class_name": "cyclist",
+          "tp": 0,
+          "fp": 507,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 507
+        },
+        "overall": {
+          "tp": 3,
+          "fp": 5195,
+          "fn": 1410,
+          "recall": 0.0021231422505307855,
+          "precision": 0.2727272727272727,
+          "false_alarm_rate": 0.7272727272727273,
+          "f1": 0.004213483146067416,
+          "total_gt": 1413,
+          "total_pred": 5198,
+          "averaging_method": "macro",
+          "valid_classes_count": 1,
+          "valid_classes": [
+            0
+          ],
+          "temporal_consistency": 0.06,
+          "consistent_frames": 90,
+          "total_frames": 1500,
+          "frames_with_targets_le5": 1413,
+          "consistent_frames_le5": 3,
+          "frames_with_targets_gt5": 0,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video26": {
+      "frames_processed": 1500,
+      "frames_gt": 1500,
+      "frames_pred": 1500,
+      "metrics": {
+        "0": {
+          "class_name": "drone",
+          "tp": 63,
+          "fp": 970,
+          "fn": 1204,
+          "recall": 0.049723756906077346,
+          "precision": 0.06098741529525654,
+          "false_alarm_rate": 0.9390125847047435,
+          "f1": 0.05478260869565217,
+          "total_gt": 1267,
+          "total_pred": 1033
+        },
+        "1": {
+          "class_name": "car",
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 2
+        },
+        "2": {
+          "class_name": "ship",
+          "tp": 0,
+          "fp": 72,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 72
+        },
+        "4": {
+          "class_name": "pedestrian",
+          "tp": 0,
+          "fp": 158,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 158
+        },
+        "overall": {
+          "tp": 63,
+          "fp": 1202,
+          "fn": 1204,
+          "recall": 0.049723756906077346,
+          "precision": 0.06098741529525654,
+          "false_alarm_rate": 0.9390125847047435,
+          "f1": 0.05478260869565217,
+          "total_gt": 1267,
+          "total_pred": 1265,
+          "averaging_method": "macro",
+          "valid_classes_count": 1,
+          "valid_classes": [
+            0
+          ],
+          "temporal_consistency": 0.19733333333333333,
+          "consistent_frames": 296,
+          "total_frames": 1500,
+          "frames_with_targets_le5": 1267,
+          "consistent_frames_le5": 63,
+          "frames_with_targets_gt5": 0,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video3": {
+      "frames_processed": 100,
+      "frames_gt": 100,
+      "frames_pred": 100,
+      "metrics": {
+        "0": {
+          "class_name": "drone",
+          "tp": 4,
+          "fp": 176,
+          "fn": 69,
+          "recall": 0.0547945205479452,
+          "precision": 0.022222222222222223,
+          "false_alarm_rate": 0.9777777777777777,
+          "f1": 0.03162055335968379,
+          "total_gt": 73,
+          "total_pred": 180
+        },
+        "1": {
+          "class_name": "car",
+          "tp": 0,
+          "fp": 3,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 3
+        },
+        "overall": {
+          "tp": 4,
+          "fp": 179,
+          "fn": 69,
+          "recall": 0.0547945205479452,
+          "precision": 0.022222222222222223,
+          "false_alarm_rate": 0.9777777777777777,
+          "f1": 0.03162055335968379,
+          "total_gt": 73,
+          "total_pred": 183,
+          "averaging_method": "macro",
+          "valid_classes_count": 1,
+          "valid_classes": [
+            0
+          ],
+          "temporal_consistency": 0.31,
+          "consistent_frames": 31,
+          "total_frames": 100,
+          "frames_with_targets_le5": 73,
+          "consistent_frames_le5": 4,
+          "frames_with_targets_gt5": 0,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video4": {
+      "frames_processed": 399,
+      "frames_gt": 399,
+      "frames_pred": 399,
+      "metrics": {
+        "0": {
+          "class_name": "drone",
+          "tp": 383,
+          "fp": 38,
+          "fn": 16,
+          "recall": 0.9598997493734336,
+          "precision": 0.9097387173396675,
+          "false_alarm_rate": 0.09026128266033251,
+          "f1": 0.9341463414634146,
+          "total_gt": 399,
+          "total_pred": 421
+        },
+        "overall": {
+          "tp": 383,
+          "fp": 38,
+          "fn": 16,
+          "recall": 0.9598997493734336,
+          "precision": 0.9097387173396675,
+          "false_alarm_rate": 0.09026128266033251,
+          "f1": 0.9341463414634146,
+          "total_gt": 399,
+          "total_pred": 421,
+          "averaging_method": "macro",
+          "valid_classes_count": 1,
+          "valid_classes": [
+            0
+          ],
+          "temporal_consistency": 0.9598997493734336,
+          "consistent_frames": 383,
+          "total_frames": 399,
+          "frames_with_targets_le5": 399,
+          "consistent_frames_le5": 383,
+          "frames_with_targets_gt5": 0,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video5": {
+      "frames_processed": 399,
+      "frames_gt": 399,
+      "frames_pred": 399,
+      "metrics": {
+        "0": {
+          "class_name": "drone",
+          "tp": 0,
+          "fp": 407,
+          "fn": 399,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 399,
+          "total_pred": 407
+        },
+        "1": {
+          "class_name": "car",
+          "tp": 0,
+          "fp": 33,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 33
+        },
+        "4": {
+          "class_name": "pedestrian",
+          "tp": 0,
+          "fp": 5,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 5
+        },
+        "overall": {
+          "tp": 0,
+          "fp": 445,
+          "fn": 399,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 399,
+          "total_pred": 445,
+          "averaging_method": "macro",
+          "valid_classes_count": 1,
+          "valid_classes": [
+            0
+          ],
+          "temporal_consistency": 0.0,
+          "consistent_frames": 0,
+          "total_frames": 399,
+          "frames_with_targets_le5": 399,
+          "consistent_frames_le5": 0,
+          "frames_with_targets_gt5": 0,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video6": {
+      "frames_processed": 399,
+      "frames_gt": 399,
+      "frames_pred": 399,
+      "metrics": {
+        "0": {
+          "class_name": "drone",
+          "tp": 396,
+          "fp": 13,
+          "fn": 3,
+          "recall": 0.9924812030075187,
+          "precision": 0.9682151589242054,
+          "false_alarm_rate": 0.0317848410757946,
+          "f1": 0.9801980198019802,
+          "total_gt": 399,
+          "total_pred": 409
+        },
+        "1": {
+          "class_name": "car",
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 2
+        },
+        "overall": {
+          "tp": 396,
+          "fp": 15,
+          "fn": 3,
+          "recall": 0.9924812030075187,
+          "precision": 0.9682151589242054,
+          "false_alarm_rate": 0.0317848410757946,
+          "f1": 0.9801980198019802,
+          "total_gt": 399,
+          "total_pred": 411,
+          "averaging_method": "macro",
+          "valid_classes_count": 1,
+          "valid_classes": [
+            0
+          ],
+          "temporal_consistency": 0.9924812030075187,
+          "consistent_frames": 396,
+          "total_frames": 399,
+          "frames_with_targets_le5": 399,
+          "consistent_frames_le5": 396,
+          "frames_with_targets_gt5": 0,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video7": {
+      "frames_processed": 399,
+      "frames_gt": 399,
+      "frames_pred": 399,
+      "metrics": {
+        "0": {
+          "class_name": "drone",
+          "tp": 0,
+          "fp": 374,
+          "fn": 399,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 399,
+          "total_pred": 374
+        },
+        "1": {
+          "class_name": "car",
+          "tp": 0,
+          "fp": 24,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 24
+        },
+        "overall": {
+          "tp": 0,
+          "fp": 398,
+          "fn": 399,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 399,
+          "total_pred": 398,
+          "averaging_method": "macro",
+          "valid_classes_count": 1,
+          "valid_classes": [
+            0
+          ],
+          "temporal_consistency": 0.0,
+          "consistent_frames": 0,
+          "total_frames": 399,
+          "frames_with_targets_le5": 399,
+          "consistent_frames_le5": 0,
+          "frames_with_targets_gt5": 0,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video8": {
+      "frames_processed": 203,
+      "frames_gt": 290,
+      "frames_pred": 203,
+      "metrics": {
+        "1": {
+          "class_name": "car",
+          "tp": 223,
+          "fp": 2043,
+          "fn": 1779,
+          "recall": 0.11138861138861139,
+          "precision": 0.09841129744042365,
+          "false_alarm_rate": 0.9015887025595763,
+          "f1": 0.10449859418931584,
+          "total_gt": 2002,
+          "total_pred": 2266
+        },
+        "3": {
+          "class_name": "bus",
+          "tp": 0,
+          "fp": 143,
+          "fn": 227,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 227,
+          "total_pred": 143
+        },
+        "4": {
+          "class_name": "pedestrian",
+          "tp": 18,
+          "fp": 1441,
+          "fn": 1215,
+          "recall": 0.014598540145985401,
+          "precision": 0.01233721727210418,
+          "false_alarm_rate": 0.9876627827278959,
+          "f1": 0.01337295690936107,
+          "total_gt": 1233,
+          "total_pred": 1459
+        },
+        "5": {
+          "class_name": "cyclist",
+          "tp": 4,
+          "fp": 2322,
+          "fn": 248,
+          "recall": 0.015873015873015872,
+          "precision": 0.0017196904557179708,
+          "false_alarm_rate": 0.998280309544282,
+          "f1": 0.0031031807602792867,
+          "total_gt": 252,
+          "total_pred": 2326
+        },
+        "overall": {
+          "tp": 245,
+          "fp": 5949,
+          "fn": 3469,
+          "recall": 0.03546504185190317,
+          "precision": 0.028117051292061452,
+          "false_alarm_rate": 0.9718829487079386,
+          "f1": 0.030243682964739046,
+          "total_gt": 3714,
+          "total_pred": 6194,
+          "averaging_method": "macro",
+          "valid_classes_count": 4,
+          "valid_classes": [
+            1,
+            3,
+            4,
+            5
+          ],
+          "temporal_consistency": 0.0,
+          "consistent_frames": 0,
+          "total_frames": 203,
+          "frames_with_targets_le5": 0,
+          "consistent_frames_le5": 0,
+          "frames_with_targets_gt5": 203,
+          "consistent_frames_gt5": 0
+        }
+      }
+    },
+    "video9": {
+      "frames_processed": 350,
+      "frames_gt": 350,
+      "frames_pred": 350,
+      "metrics": {
+        "0": {
+          "class_name": "drone",
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 1
+        },
+        "1": {
+          "class_name": "car",
+          "tp": 1916,
+          "fp": 1234,
+          "fn": 294,
+          "recall": 0.8669683257918552,
+          "precision": 0.6082539682539683,
+          "false_alarm_rate": 0.39174603174603173,
+          "f1": 0.7149253731343284,
+          "total_gt": 2210,
+          "total_pred": 3150
+        },
+        "2": {
+          "class_name": "ship",
+          "tp": 0,
+          "fp": 4,
+          "fn": 0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "false_alarm_rate": 1.0,
+          "f1": 0.0,
+          "total_gt": 0,
+          "total_pred": 4
+        },
+        "3": {
+          "class_name": "bus",
+          "tp": 36,
+          "fp": 30,
+          "fn": 50,
+          "recall": 0.4186046511627907,
+          "precision": 0.5454545454545454,
+          "false_alarm_rate": 0.4545454545454546,
+          "f1": 0.47368421052631576,
+          "total_gt": 86,
+          "total_pred": 66
+        },
+        "4": {
+          "class_name": "pedestrian",
+          "tp": 160,
+          "fp": 2038,
+          "fn": 1257,
+          "recall": 0.11291460832745237,
+          "precision": 0.07279344858962693,
+          "false_alarm_rate": 0.9272065514103731,
+          "f1": 0.08852005532503456,
+          "total_gt": 1417,
+          "total_pred": 2198
+        },
+        "5": {
+          "class_name": "cyclist",
+          "tp": 206,
+          "fp": 2156,
+          "fn": 299,
+          "recall": 0.4079207920792079,
+          "precision": 0.08721422523285352,
+          "false_alarm_rate": 0.9127857747671465,
+          "f1": 0.14370422043948378,
+          "total_gt": 505,
+          "total_pred": 2362
+        },
+        "overall": {
+          "tp": 2318,
+          "fp": 5463,
+          "fn": 1900,
+          "recall": 0.45160209434032655,
+          "precision": 0.32842904688274854,
+          "false_alarm_rate": 0.6715709531172515,
+          "f1": 0.3552084648562906,
+          "total_gt": 4218,
+          "total_pred": 7781,
+          "averaging_method": "macro",
+          "valid_classes_count": 4,
+          "valid_classes": [
+            1,
+            3,
+            4,
+            5
+          ],
+          "temporal_consistency": 0.08285714285714285,
+          "consistent_frames": 29,
+          "total_frames": 350,
+          "frames_with_targets_le5": 6,
+          "consistent_frames_le5": 2,
+          "frames_with_targets_gt5": 344,
+          "consistent_frames_gt5": 27
+        }
+      }
+    }
+  },
+  "overall_results": {
+    "overall": {
+      "tp": 36657,
+      "fp": 87705,
+      "fn": 68612,
+      "recall": 0.3402372323462662,
+      "precision": 0.28353288659948217,
+      "false_alarm_rate": 0.7164671134005177,
+      "f1": 0.28156155872412164,
+      "total_gt": 105269,
+      "total_pred": 124362,
+      "averaging_method": "direct_video_level",
+      "video_count": 26,
+      "temporal_consistency": 0.30287873733029924,
+      "total_frames": 17188,
+      "total_consistent_frames": 6917,
+      "spatiotemporal_stability": 0.23076923076923078,
+      "stable_videos": 6,
+      "stability_threshold": 0.8,
+      "consistency_iou_threshold": 0.3,
+      "total_frames_with_targets_le5": 13700,
+      "total_consistent_frames_le5": 5864,
+      "total_frames_with_targets_gt5": 2657,
+      "total_consistent_frames_gt5": 222
+    }
+  }
+}

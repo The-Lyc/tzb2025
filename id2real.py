@@ -87,9 +87,9 @@ def reorganize_predictions(json_file_path, input_pred_dir, new_output_root_dir):
 # --- 使用示例 ---
 if __name__ == "__main__":
     # 请根据您的实际路径修改以下变量
-    JSON_FILE = "data/tzb/annotations/tzb_test_exclude.json" # 或者 tzb_test_exclude.json
+    JSON_FILE = "data/tzb/annotations/tzb_test.json" # 或者 tzb_test_exclude.json
     INPUT_PRED_DIR = "output/tzb_multi"
-    NEW_OUTPUT_ROOT_DIR = "output/reorganized_predictions" # 新的预测文件存放的根目录
+    NEW_OUTPUT_ROOT_DIR = "data/tzb/Data/comp/predictions" # 新的预测文件存放的根目录
 
     reorganize_predictions(JSON_FILE, INPUT_PRED_DIR, NEW_OUTPUT_ROOT_DIR)
 

@@ -245,7 +245,7 @@ def build(image_set, args):
     mode = 'instances'
     PATHS = {
         "train_tzb": [(root / "Data" , root / "annotations" / 'tzb_train_pure.json')],
-        "val": [(root / "Data" , root / "annotations" / 'tzb_test_exclude.json')],
+        "val": [(root / "Data" , root / "annotations" / 'tzb_test.json')],
     }
     datasets = []
     for (img_folder, ann_file) in PATHS[image_set]:

@@ -277,15 +277,16 @@ def test(model, criterion, postprocessors, data_loader, base_ds, device, output_
             labels = single_image_results['labels'].cpu().numpy()
 
             # select by scores
-            keep_indices = np.where(scores > 0.5)[0]
+            keep_indices = np.where(scores > 0.1)[0]
+            filtered_scores = scores[keep_indices]
             filtered_boxes = boxes[keep_indices]
             filtered_labels = labels[keep_indices]
 
             # build the output file path
             output_file = os.path.join(output_dir, f"output_{idx}.txt")
             with open(output_file, 'w') as f:
-                for box, label in zip(filtered_boxes, filtered_labels):
-                    f.write(f"{label-1} {' '.join(map(str, box))}\n")
+                for box, label, score in zip(filtered_boxes, filtered_labels, filtered_scores):
+                    f.write(f"{label-1} {' '.join(map(str, box))} {score:.6f}\n")
 
     # gather the stats from all processes
     metric_logger.synchronize_between_processes()

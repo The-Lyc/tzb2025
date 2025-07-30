@@ -200,6 +200,7 @@ class DeformableTransformer(nn.Module):
             feats_whwh = (w, h, w, h)
             spatial_shape = (h, w)
             spatial_shapes.append(spatial_shape)
+            # src: torch.Size([15, 256, 75, 75]) -> torch.Size([15, 5625, 256])
             src = src.flatten(2).transpose(1, 2)
             mask = mask.flatten(1)
             pos_embed = pos_embed.flatten(2).transpose(1, 2)
@@ -222,7 +223,11 @@ class DeformableTransformer(nn.Module):
         valid_ratios = torch.stack([self.get_valid_ratio(m) for m in masks], 1)
         # print("valid_ratios", valid_ratios.shape)
 
+        # import ipdb; ipdb.set_trace()
+
         # encoder
+        # call DeformableTransformerEncoder.forward() in deformable_transformer_multi.py
+        # memory torch.Size([15, 5625, 256])
         memory = self.encoder(src_flatten, spatial_shapes, level_start_index, valid_ratios, lvl_pos_embed_flatten, mask_flatten)
 
         # prepare input for decoder:
@@ -250,6 +255,13 @@ class DeformableTransformer(nn.Module):
             init_reference_out = reference_points
 
         # decoder
+        '''
+            hs are hidden states of the decoder, will be send to FFNs to predict class scores and predict bbox
+            hs.shape:torch.Size([6, 15, 100, 256])->[decoder_layer_nums, batch_size, num_queries, d_model]
+            
+            inter_references are intermediate reference points, will induct the cross attention in the next decoder layer or output as the central points of the predicted bbox
+            inter_references.shape: torch.Size([6, 15, 100, 4]) -> [decoder_layer_nums, batch_size, num_queries, coordinate(x,y,w,h)]
+        '''
         hs, inter_references = self.decoder(tgt, reference_points, memory,
                                             spatial_shapes, level_start_index, valid_ratios, query_embed, mask_flatten)
 
@@ -313,14 +325,14 @@ class DeformableTransformer(nn.Module):
 
             # score of current frame
             cur_hs_logits = class_embed(cur_hs)
-            cur_prob = cur_hs_logits.sigmoid()      # torch.Size([1, 300, 31])
+            cur_prob = cur_hs_logits.sigmoid()      # torch.Size([1, 100, 7])
 
             # score of refernce frames
             # ref_hs_logits = class_embed(ref_hs)
             # ref_prob = ref_hs_logits.sigmoid()      # torch.Size([1, 300*N, 31])
             ref_prob_list = []
             ref_hs_logits_each = class_embed(ref_hs_list[0])
-            ref_prob_each = ref_hs_logits_each.sigmoid()      # torch.Size([1, 300, 31])
+            ref_prob_each = ref_hs_logits_each.sigmoid()      # torch.Size([1, 100, 7])
             ref_prob_list.append(ref_prob_each)
             ref_hs_logits_concat = ref_hs_logits_each
             for ref_hs_each in ref_hs_list[1:]:

@@ -138,13 +138,16 @@ class DeformableDETR(nn.Module):
                - "aux_outputs": Optional, only returned when auxilary losses are activated. It is a list of
                                 dictionnaries containing the two above keys for each decoder layer.
         """
-        # import pdb; pdb.set_trace()
+        import pdb; pdb.set_trace()
         if not isinstance(samples, NestedTensor):
             samples = nested_tensor_from_tensor_list(samples)
         
 
-        bs, c, h, w = samples.tensors.shape # torch.Size([5, 3, 562, 999])
+        bs, c, h, w = samples.tensors.shape # torch.Size([15, 1, 600, 600])
         imgs_whwh_shape = (w, h, w, h)
+
+        # backbones: swin_transformer.py class Joiner:forward()
+        # features: type list; len 1; features[0].tensors.shape torch.Size([15, 256, 75, 75])
         features, pos = self.backbone(samples)
         # print('features[-1].tensors.shape', features[-1].tensors.shape)
 
@@ -173,6 +176,8 @@ class DeformableDETR(nn.Module):
         query_embeds = None
         if not self.two_stage:
             query_embeds = self.query_embed.weight
+        
+        # call DeformableTransformer.forward() in deformable_transformer_multi.py
         hs, init_reference, inter_references, enc_outputs_class, enc_outputs_coord_unact, final_hs, final_references_out, out = self.transformer(srcs, masks, pos, imgs_whwh_shape, query_embeds, self.class_embed[-1], self.bbox_embed[-1], self.temp_class_embed_list, self.temp_bbox_embed_list)
         
 

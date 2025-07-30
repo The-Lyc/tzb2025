@@ -245,11 +245,12 @@ def test(model, criterion, postprocessors, data_loader, base_ds, device, output_
     for samples, targets  in metric_logger.log_every(data_loader, 10, header):
         samples = samples.to(device)
         targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
-        # import ipdb; ipdb.set_trace()
+        import ipdb; ipdb.set_trace()
         print(f"\n********* number of targets: {len(targets)}\n")
         for i, target in enumerate(targets):
             print(f"target {i} image_id: {target['image_id']}\n")
         idx = targets[0]['image_id'].item()
+        # call deformable_detr_multi.py DeformableDetr.forward()
         outputs = model(samples)
         loss_dict = criterion(outputs, targets)
         weight_dict = criterion.weight_dict

@@ -595,6 +595,7 @@ class SwinTransformer(nn.Module):
 
     def forward(self, x):
         """Forward function."""
+        # after patch embedding, x is of shape [15(BS), 128(vector dim), 150(H), 150(W)]
         x = self.patch_embed(x)
         Wh, Ww = x.size(2), x.size(3)
         if self.ape:
@@ -602,6 +603,7 @@ class SwinTransformer(nn.Module):
             absolute_pos_embed = F.interpolate(self.absolute_pos_embed, size=(Wh, Ww), mode='bicubic')
             x = (x + absolute_pos_embed).flatten(2).transpose(1, 2)  # B Wh*Ww C
         else:
+            # x is flattened to shape [15, 22500, 128]
             x = x.flatten(2).transpose(1, 2)
         x = self.pos_drop(x)
 
@@ -646,6 +648,7 @@ class BackboneBase(nn.Module):
         self.body = backbone
 
     def forward(self, tensor_list: NestedTensor):
+        # call SwinTransformer:forward() in swin_transformer.py
         xs = self.body(tensor_list.tensors)
         out: Dict[str, NestedTensor] = {}
         for name, x in xs.items():
@@ -672,6 +675,7 @@ class Backbone(BackboneBase):
         super().__init__(backbone, strides, num_channels)
 
 
+# 继承自Sequential类，Sequential是一个容器模块，按顺序包含其他模块。在Joiner类中，self[0]指向backbone，self[1]指向position_embedding。
 class Joiner(nn.Sequential):
     def __init__(self, backbone, position_embedding):
         super().__init__(backbone, position_embedding)
@@ -679,6 +683,7 @@ class Joiner(nn.Sequential):
         self.num_channels = backbone.num_channels
 
     def forward(self, tensor_list: NestedTensor):
+        # call BackboneBase:forward() in swin_transformer.py
         xs = self[0](tensor_list)
         out: List[NestedTensor] = []
         pos = []

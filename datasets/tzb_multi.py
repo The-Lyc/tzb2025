@@ -50,6 +50,7 @@ class CocoDetection(TvCocoDetection):
         """
         imgs = []
 
+        # import ipdb; ipdb.set_trace()
         coco = self.coco
         img_id = self.ids[idx]
         ann_ids = coco.getAnnIds(imgIds=img_id)

@@ -157,6 +157,67 @@ And then run following command to evaluate it on ImageNET VID validation set:
 GPUS_PER_NODE=8 ./tools/run_dist_launch.sh $1 eval_swinb $2 configs/swinb_eval_multi.sh
 ```
 
+## TZB2025
+### Dataset Prepare
+Transvod only accepts coco format dataset. If your dataset is labeled in YOLO format, you should run:
+```bash
+#under data/tzb/
+python generate_coco.py
+```
+When completing, the coco format json annotation is geenrated under `annotations`.
+
+Then, you should config `tzb_multi.py` to choose using the json file you want to use.
+
+### Training
+Training TransVOD needs two phases: firstly single frame and secondly multiple frame.
+1. Traing for single frame:
+```bash
+nohup sh -c 'GPUS_PER_NODE=8 ./tools/run_dist_launch.sh $1 swinb $2 configs/swinb_train_single.sh' > single_train_log.txt 2>&1 &
+```
+You can moniter the log by:
+```bash
+tail -f single_train_log.txt
+```
+Note that you can modify checkpoints' location in `EXP_DIR` of `configs/swinb_train_single.sh` .
+2. Train for multi-frame:
+```bash
+nohup sh -c 'GPUS_PER_NODE=8 ./tools/run_dist_launch.sh $1 swinb $2 configs/swinb_train_multi.sh' > multi_train_log.txt 2>&1 &
+```
+You can moniter the log by:
+```bash
+tail -f multi_train_log.txt
+```
+Note that you can config the resumed checkpoint's location and output checkpoints' location in `--resume` and `EXP_DIR` of `configs/swinb_train_multi.sh`, respectively.
+
+### Evaluation
+Evaluation for multi-frame:
+```bash
+nohup sh -c 'GPUS_PER_NODE=8 ./tools/run_dist_launch.sh $1 eval_swinb $2 configs/swinb_eval_multi.sh' > multi_eval_log.txt 2>&1 &
+```
+You can moniter the log by:
+```bash
+tail -f multi_eval_log.txt
+```
+Note that you can config the resumed checkpoint's location in `--resume` of `configs/swinb_eval_multi.sh`.
+
+### Test
+Before conducting test, you should prepare the empty annotation json just like that of training and evaluation. 
+For test, run:
+```bash
+nohup sh -c 'GPUS_PER_NODE=8 ./tools/run_dist_launch.sh $1 swinb $2 configs/test_multi.sh' > multi_test_log.txt 2>&1 &
+``` 
+You can moniter the log by:
+```bash
+tail -f multi_test_log.txt
+```
+Note that you can config the resumed checkpoint's location in `--resume` of `configs/test_multi.sh`.
+
+After test, output results are stored in `/output/tzb_multi/`, you should process them to the YOLO format, run:
+```bash
+python id2real.py
+python evaluator.py
+```
+
 ## Acknowledgements
 
 This project is based on the following open-source projects. We thank their

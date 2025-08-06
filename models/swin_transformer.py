@@ -24,6 +24,9 @@ from timm.models.layers import DropPath, to_2tuple, trunc_normal_
 from .position_encoding import build_position_encoding
 from torchvision.ops.feature_pyramid_network import FeaturePyramidNetwork
 
+from omegaconf import DictConfig, OmegaConf
+from .unet_model_wavelet import UNet_F_wave
+
 class Mlp(nn.Module):
     """ Multilayer perceptron."""
 
@@ -502,6 +505,44 @@ class SwinTransformer(nn.Module):
         self.frozen_stages = frozen_stages
         self.fpn = FeaturePyramidNetwork(in_channels_list=[256, 512, 1024],  out_channels=256)
 
+        # build wavelet branch
+        self.wave_input_conv = nn.Conv2d(
+            in_channels=1,         # 输入通道数，对应张量的第2维
+            out_channels=128,      # 输出通道数，对应新张量的第2维
+            kernel_size=4,         # 卷积核大小，这里设置为4x4
+            stride=4,              # 步长，设置为4，每4个像素移动一次
+            padding=0              # 填充，设置为0，不需要填充
+        )
+        yaml_str = """
+        model:
+            mode : 1
+            n_channels: 1
+            n_classes: 7
+            layer: 4
+            out_threshold: 0.5
+            se: False
+            load: False
+            load_dir: ./checkpoint/
+            save_dir: ./checkpoints/
+            bilinear: True
+        data:
+            dir_img: './data/sirst/train/images'
+            dir_mask: './data/sirst/train/masks'
+            val_percent:  0.1
+            mask_suffix: ''
+            size: 600
+            scale_input: 600
+            interpolate_mode: bicubic
+        resizer:
+            first_act: RE
+            last_bn: True
+            last_act: relu
+            scale: 1
+            mode: bicubic
+        """
+        cfg = OmegaConf.create(yaml_str)
+        self.wavelet_branch = UNet_F_wave(cfg)
+
         # split image into non-overlapping patches
         self.patch_embed = PatchEmbed(
             patch_size=patch_size, in_chans=in_chans, embed_dim=embed_dim,
@@ -568,7 +609,7 @@ class SwinTransformer(nn.Module):
                 for param in m.parameters():
                     param.requires_grad = False
 
-    def init_weights(self, pretrained=None):
+    def init_weights(self, swin_pretrained=None, wavelet_pretrained=None):
         """Initialize the weights in backbone.
         Args:
             pretrained (str, optional): Path to pre-trained weights.
@@ -583,19 +624,74 @@ class SwinTransformer(nn.Module):
                 nn.init.constant_(m.bias, 0)
                 nn.init.constant_(m.weight, 1.0)
 
-        if isinstance(pretrained, str):
+        if isinstance(swin_pretrained, str):
             self.apply(_init_weights)
-            checkpoint = torch.load(pretrained, map_location='cpu')
-            print(f'load from {pretrained}.') 
-            self.load_state_dict(checkpoint['model'], strict=False)
-        elif pretrained is None:
+            checkpoint = torch.load(swin_pretrained, map_location='cpu')
+            print(f'load swin transformer weight from {swin_pretrained}.')
+            pretrained_dict = checkpoint['model'] if 'model' in checkpoint else checkpoint
+            model_dict = model.state_dict()
+            matched_dict = {k: v for k, v in pretrained_dict.items()
+                    if k in model_dict and model_dict[k].shape == v.shape}
+            model_dict.update(matched_dict)
+            self.load_state_dict(model_dict, strict=False)
+        elif swin_pretrained is None:
             self.apply(_init_weights)
         else:
             raise TypeError('pretrained must be a str or None')
+        
+        if isinstance(wavelet_pretrained, str):
+            self.wavelet_branch.apply(_init_weights)
+            checkpoint = torch.load(wavelet_pretrained, map_location='cpu')
+            print(f'--------------------------load wavelet branch weight from {wavelet_pretrained}.-----------------------------------')
+            pretrained_dict = checkpoint['model'] if 'model' in checkpoint else checkpoint
+            model_dict = self.wavelet_branch.state_dict()
+            # matched_dict = {k: v for k, v in pretrained_dict.items()
+            #         if k in model_dict and model_dict[k].shape == v.shape}
+            # model_dict.update(matched_dict)
+            
+            matched_dict = {}
+            loaded_keys = []
+            skipped_keys = []
 
+            for k, v in pretrained_dict.items():
+                if k in model_dict:
+                    if model_dict[k].shape == v.shape:
+                        matched_dict[k] = v
+                        loaded_keys.append(k)
+                    else:
+                        skipped_keys.append(f"{k} (shape mismatch: checkpoint {v.shape} vs model {model_dict[k].shape})")
+                else:
+                    skipped_keys.append(f"{k} (not in current model)")
+
+            # Update and load state dict
+            model_dict.update(matched_dict)
+            self.wavelet_branch.load_state_dict(model_dict, strict=False)
+
+            # Logging results
+            print(f"\n[Wavelet Branch] Successfully loaded {len(loaded_keys)} layers:")
+            for k in loaded_keys:
+                print(f"  ✓ {k}")
+            
+            print(f"\n[Wavelet Branch] Skipped {len(skipped_keys)} layers:")
+            for k in skipped_keys:
+                print(f"  ✗ {k}")
+        elif wavelet_pretrained is None:
+            self.wavelet_branch.apply(_init_weights)    
+        else:
+            raise TypeError('wavelet_pretrained must be a str or None')
+        # self.wavelet_branch.apply(_init_weights)
+        
     def forward(self, x):
         """Forward function."""
+        
+        # before patch embedding, x is of shape [15,1,600,600]
+        x_wavelet = x
+        # wavelet transform to shape [15,128,150,150] 
+
+        # x_wavelet = self.wave_input_conv(x_wavelet)  # [15, 128, 150, 150]
+
         # after patch embedding, x is of shape [15(BS), 128(vector dim), 150(H), 150(W)]
+        
         x = self.patch_embed(x)
         Wh, Ww = x.size(2), x.size(3)
         if self.ape:
@@ -617,7 +713,23 @@ class SwinTransformer(nn.Module):
                 x_out = norm_layer(x_out)
                 out = x_out.view(-1, H, W, self.num_features[i]).permute(0, 3, 1, 2).contiguous()
                 outs.append(out)
+        # outs: layer 1 is torch.Size([15, 256, 75, 75]), layer 2 is torch.Size([15, 512, 38, 38]), layer 3 is torch.Size([15, 1024, 19, 19])
         
+        # import ipdb; ipdb.set_trace()
+        # wavelet forward
+        feat1, feat2, feat3 = self.wavelet_branch(x_wavelet) 
+        # prune feat from wavelet branch to match the output size of swin transformer
+        feat1 = F.interpolate(feat1, size=(75, 75), mode='bilinear', align_corners=None)  # [15, 256, 75, 75]
+        feat2 = F.interpolate(feat2, size=(38, 38), mode='bilinear', align_corners=None)  # [15, 512, 38, 38]
+        feat3 = F.interpolate (feat3, size=(19, 19), mode='bilinear', align_corners=None)  # [15, 1024, 19, 19]
+        
+        import ipdb; ipdb.set_trace()
+        # fuse features from swin transformer and wavelet branch
+        # TODO: try more effective fusion methods
+        outs[0] = outs[0] + feat1
+        outs[1] = outs[1] + feat2
+        outs[2] = outs[2] + feat3
+
         # Modified swin-based backbone via feature aggregation
         rets = {str(u): v for (u,v) in enumerate(outs)}
         feat_fpn = self.fpn(rets)        
@@ -663,7 +775,8 @@ class Backbone(BackboneBase):
     """ResNet backbone with frozen BatchNorm."""
     def __init__(self, name: str,
                  checkpoint: bool = False,
-                 pretrained: str = None):
+                 pretrained: str = None,
+                 wavelet_pretrained: str = None):
         assert name in ['swin_t_p4w7', 'swin_s_p4w7', 'swin_b_p4w7', 'swin_l_p4w7']
         cfgs = configs[name]
         cfgs.update({'use_checkpoint': checkpoint})
@@ -671,7 +784,7 @@ class Backbone(BackboneBase):
         strides = [int(2**(i+2)) for i in out_indices]
         num_channels = [int(cfgs['embed_dim'] * 2**i) for i in out_indices]
         backbone = SwinTransformer(**cfgs)
-        backbone.init_weights(pretrained)
+        backbone.init_weights(pretrained, wavelet_pretrained)
         super().__init__(backbone, strides, num_channels)
 
 
@@ -697,7 +810,7 @@ class Joiner(nn.Sequential):
     
 def build_swin_backbone(args):
     position_embedding = build_position_encoding(args)
-    backbone = Backbone(args.backbone, args.checkpoint, args.pretrained)
+    backbone = Backbone(args.backbone, args.checkpoint, args.pretrained, args.wavelet_pretrained)
     model = Joiner(backbone, position_embedding)
     return model
 

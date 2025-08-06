@@ -609,7 +609,7 @@ class SwinTransformer(nn.Module):
                 for param in m.parameters():
                     param.requires_grad = False
 
-    def init_weights(self, swin_pretrained=None, wavelet_pretrained=None):
+    def init_weights(self, swin_pretrained=None, wavelet_pretrained=None, freeze_swin=False, freeze_wavelet=False):
         """Initialize the weights in backbone.
         Args:
             pretrained (str, optional): Path to pre-trained weights.
@@ -680,6 +680,19 @@ class SwinTransformer(nn.Module):
         else:
             raise TypeError('wavelet_pretrained must be a str or None')
         # self.wavelet_branch.apply(_init_weights)
+
+        # freeze weights according to args
+        if(freeze_swin == 'True'):
+            print('-------------------freeze swin transformer weights----------------------')
+            for name,param in self.named_parameters():
+                if "wavelet_branch" not in name:
+                    param.requires_grad = False
+        if(freeze_wavelet == 'True'):
+            print('-------------------freeze wavelet branch weights----------------------')
+            for param in self.wavelet_branch.parameters():
+                param.requires_grad = False
+        for name, param in self.named_parameters():
+            print(name, param.requires_grad)
         
     def forward(self, x):
         """Forward function."""
@@ -776,7 +789,9 @@ class Backbone(BackboneBase):
     def __init__(self, name: str,
                  checkpoint: bool = False,
                  pretrained: str = None,
-                 wavelet_pretrained: str = None):
+                 wavelet_pretrained: str = None,
+                 freeze_swin: bool = False,
+                 freeze_wavelet: bool = False):
         assert name in ['swin_t_p4w7', 'swin_s_p4w7', 'swin_b_p4w7', 'swin_l_p4w7']
         cfgs = configs[name]
         cfgs.update({'use_checkpoint': checkpoint})
@@ -784,7 +799,7 @@ class Backbone(BackboneBase):
         strides = [int(2**(i+2)) for i in out_indices]
         num_channels = [int(cfgs['embed_dim'] * 2**i) for i in out_indices]
         backbone = SwinTransformer(**cfgs)
-        backbone.init_weights(pretrained, wavelet_pretrained)
+        backbone.init_weights(pretrained, wavelet_pretrained, freeze_swin, freeze_wavelet)
         super().__init__(backbone, strides, num_channels)
 
 
@@ -810,7 +825,7 @@ class Joiner(nn.Sequential):
     
 def build_swin_backbone(args):
     position_embedding = build_position_encoding(args)
-    backbone = Backbone(args.backbone, args.checkpoint, args.pretrained, args.wavelet_pretrained)
+    backbone = Backbone(args.backbone, args.checkpoint, args.pretrained, args.wavelet_pretrained, args.freeze_swin, args.freeze_wavelet)
     model = Joiner(backbone, position_embedding)
     return model
 

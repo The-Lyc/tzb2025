@@ -189,6 +189,8 @@ tail -f multi_train_log.txt
 ```
 Note that you can config the resumed checkpoint's location and output checkpoints' location in `--resume` and `EXP_DIR` of `configs/swinb_train_multi.sh`, respectively.
 
+To freeze SwinTransformer backbone or Wavelet branch, use `--freeze_swin` or `--freeze_wavelet`.
+
 ### Evaluation
 Evaluation for multi-frame:
 ```bash

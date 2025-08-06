@@ -21,4 +21,6 @@ python -u main.py \
     --with_box_refine \
     --dataset_file 'tzb_multi' \
     --output_dir ${EXP_DIR} \
+    --freeze_swin True \
+    --freeze_wavelet False \
     ${PY_ARGS} 2>&1 | tee ${EXP_DIR}/log.train.$T

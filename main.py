@@ -53,6 +53,8 @@ def get_args_parser():
                         help="Path to the pretrained model. If set, only the mask head will be trained")
     parser.add_argument('--pretrained', default=None, help='resume from checkpoint')
     parser.add_argument('--wavelet_pretrained', default='exps/checkpoint_sirst.pth')
+    parser.add_argument('--freeze_swin', default=False)
+    parser.add_argument('--freeze_wavelet', default=False)
 
     # * Backbone
     parser.add_argument('--backbone', default='resnet50', type=str,
